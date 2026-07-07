@@ -27,8 +27,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata = {
-  title: "Nama Anda — Full-Stack Developer",
-  description: "Portofolio bergaya typography-driven milik Nama Anda.",
+  title: "Ilham Fajar Andika — Backend & QA Engineer",
 };
 
 const themeInitScript = `

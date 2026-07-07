@@ -1,0 +1,311 @@
+/* =========================================================
+   TYPOGRAPHY-DRIVEN — utilitas & animasi kustom
+   ========================================================= */
+
+html,
+body {
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
+}
+
+::selection {
+  background: #0066ff;
+  color: #ffffff;
+}
+.dark ::selection {
+  background: #3d8bff;
+  color: #0a0a0a;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #0066ff;
+  border-radius: 999px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #3d8bff;
+}
+
+:focus-visible {
+  outline: 2px solid #0066ff;
+  outline-offset: 3px;
+}
+.dark :focus-visible {
+  outline-color: #3d8bff;
+}
+
+/* ---- Latar "Ascii Field": karakter ASCII acak yang berpindah berkala ---- */
+.type-field {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ascii-char {
+  position: absolute;
+  font-family: var(--font-jetbrains), monospace;
+  font-weight: 700;
+  color: #0066ff;
+  user-select: none;
+  transition:
+    top 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+    left 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.6s ease;
+  will-change: top, left, opacity;
+}
+.dark .ascii-char {
+  color: #3d8bff;
+}
+.ascii-char.accent {
+  color: #ff007f;
+}
+.dark .ascii-char.accent {
+  color: #ff4fd8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ascii-char {
+    transition: none !important;
+  }
+}
+
+/* ---- Drop cap editorial untuk paragraf About ---- */
+.drop-cap::first-letter {
+  font-family: var(--font-playfair), serif;
+  font-size: 5.2rem;
+  line-height: 0.75;
+  float: left;
+  padding-right: 0.6rem;
+  padding-top: 0.4rem;
+  color: #0066ff;
+  font-weight: 600;
+}
+.dark .drop-cap::first-letter {
+  color: #3d8bff;
+}
+
+/* ---- Pull quote dengan tanda kutip raksasa dekoratif ---- */
+.pull-quote {
+  position: relative;
+}
+.pull-quote::before {
+  content: "\201C";
+  position: absolute;
+  top: -2.5rem;
+  left: -1.5rem;
+  font-family: var(--font-playfair), serif;
+  font-size: 8rem;
+  color: #ff007f;
+  opacity: 0.18;
+  line-height: 1;
+  pointer-events: none;
+}
+.dark .pull-quote::before {
+  color: #ff4fd8;
+  opacity: 0.28;
+}
+
+/* ---- Underline animasi (dipakai judul proyek, link, nav) ---- */
+.underline-grow {
+  position: relative;
+  display: inline-block;
+}
+.underline-grow::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.08em;
+  width: 100%;
+  height: 0.08em;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.underline-grow:hover::after,
+.underline-grow.is-active::after {
+  transform: scaleX(1);
+}
+
+/* ---- Cursor berkedip untuk efek ketik ---- */
+.type-cursor {
+  display: inline-block;
+  width: 0.09em;
+  background: currentColor;
+  margin-left: 0.05em;
+  animation: blink 1s step-end infinite;
+}
+
+/* ---- Hormati preferensi mengurangi animasi ---- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---- Bingkai foto: poligon asimetris yang terus berubah bentuk ---- */
+.photo-frame {
+  position: relative;
+  overflow: hidden;
+
+  border-radius: 36% 64% 58% 42% / 42% 34% 66% 58%;
+  border: 3px solid rgba(0, 102, 255, 0.2);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(4px);
+
+  animation: frameRotate 8s ease-in-out infinite;
+
+  transition: border-color 0.3s;
+}
+.dark .photo-frame {
+  background: #1a1a1a;
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 65%;
+  display: block;
+  transform: scale(1.08);
+}
+.photo-frame:hover img {
+  transform: scale(1.03);
+  border-color: rgba(0, 102, 255, 0.5);
+}
+
+@keyframes frameMorph {
+  0%,
+  100% {
+    clip-path: polygon(
+      8% 0%,
+      92% 4%,
+      100% 22%,
+      96% 78%,
+      100% 96%,
+      78% 100%,
+      22% 96%,
+      0% 76%,
+      4% 24%
+    );
+  }
+  50% {
+    clip-path: polygon(
+      2% 6%,
+      84% 0%,
+      100% 14%,
+      100% 84%,
+      88% 100%,
+      16% 100%,
+      0% 88%,
+      4% 40%,
+      0% 14%
+    );
+  }
+}
+
+@keyframes frameRotate {
+  0% {
+    transform: rotate(-3deg) scale(1);
+    border-radius: 36% 64% 58% 42% / 42% 34% 66% 58%;
+  }
+
+  25% {
+    transform: rotate(1deg) scale(1.03);
+    border-radius: 42% 58% 66% 34% / 38% 52% 48% 62%;
+  }
+
+  50% {
+    transform: rotate(3deg) scale(1.05);
+    border-radius: 58% 42% 36% 64% / 56% 38% 62% 44%;
+  }
+
+  75% {
+    transform: rotate(1deg) scale(1.03);
+    border-radius: 48% 52% 40% 60% / 44% 60% 40% 56%;
+  }
+
+  100% {
+    transform: rotate(-3deg) scale(1);
+    border-radius: 36% 64% 58% 42% / 42% 34% 66% 58%;
+  }
+}
+
+/* ---- Crop-mark: aksen ala tanda potong percetakan di 4 sudut ---- */
+.crop-mark {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  z-index: 20;
+  border-color: #0066ff;
+  animation: cropBlink 3s ease-in-out infinite;
+  pointer-events: none;
+}
+.dark .crop-mark {
+  border-color: #3d8bff;
+}
+.crop-mark-tl {
+  top: -12px;
+  left: -12px;
+  border-top: 2px solid;
+  border-left: 2px solid;
+}
+.crop-mark-tr {
+  top: -12px;
+  right: -12px;
+  border-top: 2px solid;
+  border-right: 2px solid;
+  animation-delay: 0.4s;
+}
+.crop-mark-bl {
+  bottom: -12px;
+  left: -12px;
+  border-bottom: 2px solid;
+  border-left: 2px solid;
+  animation-delay: 0.8s;
+}
+.crop-mark-br {
+  bottom: -12px;
+  right: -12px;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+  animation-delay: 1.2s;
+}
+
+@keyframes cropBlink {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+/* ---- Kerumunan ASCII kecil yang mengorbit di belakang foto ---- */
+.photo-ascii-orbit {
+  position: absolute;
+  inset: -18%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-frame,
+  .crop-mark {
+    animation: none !important;
+  }
+}

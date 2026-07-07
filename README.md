@@ -78,7 +78,3 @@ kesan "grid presisi" tanpa jadi elemen dekoratif yang mengganggu keterbacaan tek
 - `prefers-reduced-motion` mematikan animasi scramble & reveal.
 - `:focus-visible` diberi outline biru untuk navigasi keyboard.
 - Dibangun mobile-first: grid berubah dari satu kolom ke `md:grid-cols-12` dsb.
-
-## Deploy
-
-Push ke GitHub → import di [vercel.com](https://vercel.com) → otomatis ter-deploy.

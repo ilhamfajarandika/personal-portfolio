@@ -24,7 +24,7 @@ export default function Hero() {
           {" "}
           <PhotoAsciiOrbit />
           <div className="photo-frame h-full w-full">
-            <img src="/foto-profil.jpg" alt={profile.name} />
+            <img src="https://ilhamfajarandika.github.io/personal-portfolio/foto-profil.jpg" alt={profile.name} />
           </div>
           <span className="crop-mark crop-mark-tl" />
           <span className="crop-mark crop-mark-tr" />
